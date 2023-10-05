@@ -1,0 +1,63 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a routerLink="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img src="assets/chatlogo.jpg" alt="" class="bi me-2" width="40" height="32" role="img">
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+                >
+                <ng-container *ngIf="(authServices.currentUser$ | async)">
+                    <li><a routerLink="/member" routerLinkActive="text-white"
+                        class="nav-link px-2 text-secondary">Matchs</a></li>
+                <li><a routerLink="/lists" routerLinkActive="text-white" class="nav-link px-2 text-secondary">List</a>
+                </li>
+                <li><a routerLink="/message" routerLinkActive="text-white"
+                        class="nav-link px-2 text-secondary">Message</a></li>
+                </ng-container>
+                
+                
+
+            </ul>
+
+
+            <div class="dropdown" *ngIf="(authServices.currentUser$ | async) as user">
+                <button class="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    welcom, {{user.userName | uppercase}}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                    <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout</a></li>
+                </ul>
+            </div>
+
+            <form [formGroup]="loginForm" class="col-12  col-lg-auto mb-3 mb-lg-0 me-lg-3" (ngSubmit)="login()"
+                *ngIf="(authServices.currentUser$ |async) === null">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input formControlName="userName" type="text" class="form-control form-control-dark"
+                            placeholder="UsrName">
+
+                    </div>
+                    <div class="col-md-4">
+                        <input formControlName="password" type="password" class="form-control form-control-dark"
+                            placeholder="Password">
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="text-end">
+                            <button [disabled]="loginForm.invalid" type="submit"
+                                class="btn btn-outline-light me-2">Login</button>
+                            <!-- <button type="button" class="btn btn-warning">Sign-up</button> -->
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</header>
