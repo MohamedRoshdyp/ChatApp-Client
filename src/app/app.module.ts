@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
@@ -14,6 +14,10 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { SharedModule } from './modules/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MemberDetailComponent,
     ListsComponent,
     MessagesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +38,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
