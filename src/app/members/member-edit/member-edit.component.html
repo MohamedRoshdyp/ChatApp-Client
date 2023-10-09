@@ -1,0 +1,100 @@
+<div class="row" *ngIf="member">
+    <div class="col-4 text-center">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="col-8">
+        <!-- alert -->
+        <div class="alert alert-warning text-center" *ngIf="!editMemberForm.pristine">
+            <strong>Information</strong>Will be lost un saved data
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img class="card-img-top img-thumbnail" src="{{member.photoUrl || '/assets/default-user.png'}}"
+                alt="{{member.userName}}">
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>{{member.city}} - {{member.country}}</p>
+                </div>
+                <div>
+
+                    <strong>Age:</strong>
+                    <p>{{member.age}}</p>
+                </div>
+                <div>
+                    <strong>Member Last Active:</strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Member since:</strong>
+                    <p>{{member.created}}</p>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <div class="btn-group d-flex">
+                    <button [disabled]="!editMemberForm.dirty" form="editForm" type="submit" class="btn btn-success btn-block">
+                        <i class="fas fa-check mx-2"></i>
+                        Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{member.knownAs}}">
+                <form id="editForm" [formGroup]="editMemberForm" (ngSubmit)="onSubmit()">
+                    <h4>Description</h4>
+                    <div class="mb-3">
+                        <textarea class="form-control" formControlName="introduction"
+                            rows="5">{{member.introduction}}</textarea>
+                    </div>
+                    <!-- <p>{{member.introduction}}</p> -->
+                    <h4>Looking For</h4>
+                    <div class="mb-3">
+                        <textarea class="form-control" formControlName="lookingFor"
+                            rows="5">{{member.lookingFor}}</textarea>
+                    </div>
+                    <h4>interests </h4>
+                    <div class="mb-3">
+                        <textarea class="form-control" formControlName="interests"
+                            rows="5">{{member.interests}}</textarea>
+                    </div>
+                    <!-- <p>{{member.lookingFor}}</p> -->
+                    <h4>Location Detials</h4>
+
+                    <div class="row align-items-center">
+                        <div class="col-6 mb-3">
+                            <label for="" class="form-label">City</label>
+                            <input type="text" value="{{member.city}}" class="form-control" formControlName="city"
+                                placeholder="">
+                            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="" class="form-label">Country</label>
+                            <input type="text" value="{{member.country}}" class="form-control" formControlName="country"
+                                placeholder="">
+                            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                        </div>
+
+                    </div>
+                </form>
+            </tab>
+
+            
+            <tab heading='Edit Photos'>
+                <p>edit photo back soon</p>
+                <!-- <ngx-gallery 
+                        [options]="galleryOptions" 
+                        [images]="galleryImages" 
+                        class="ngx-gallery"
+                        ></ngx-gallery> -->
+
+            </tab>
+            
+        </tabset>
+    </div>
+
+</div>

@@ -27,8 +27,12 @@
                     welcom, {{user.userName | uppercase}}
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                    <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout</a></li>
+                    <li><a class="dropdown-item" routerLink="/members/edit" style="cursor: pointer;">
+                        <i class="fas fa-pen mr-3"></i>
+                        Edit Profile</a></li>
+                    <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">
+                        <i class="fas fa-arrow-left mr-3"></i>
+                        Logout</a></li>
                 </ul>
             </div>
 
@@ -49,7 +53,9 @@
 
                         <div class="text-end">
                             <button [disabled]="loginForm.invalid" type="submit"
-                                class="btn btn-outline-light me-2">Login</button>
+                                class="btn btn-outline-light me-2">
+                                <i class="fas fa-sign-in mx-1"></i>
+                                Login</button>
                             <!-- <button type="button" class="btn btn-warning">Sign-up</button> -->
                         </div>
                     </div>

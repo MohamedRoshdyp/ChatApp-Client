@@ -17,3 +17,10 @@ export interface Member {
     photos: Photo[]
 }
 
+export interface updateMember {
+    introduction: string
+    lookingFor: string
+    country: string
+    city: string
+    interests: string
+  }
