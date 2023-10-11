@@ -22,6 +22,7 @@
 
             
             <div class="dropdown" *ngIf="(authServices.currentUser$ | async) as user">
+                <img [src]="user.photoUrl" class="img-fluid rounded-top imgProfile" [alt]="user.userName">
                 <button class="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     welcom, {{user.userName | uppercase}}

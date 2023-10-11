@@ -19,13 +19,15 @@ export class AuthService {
       map((res:User)=>{
         const user = res;
         if(user){
-          localStorage.setItem('user',JSON.stringify(res))
-          this.currentUserSource.next(user)
+          this.setCurrentUser(user);
+          // localStorage.setItem('user',JSON.stringify(res))
+          // this.currentUserSource.next(user)
         }
       })
     )
   }
   setCurrentUser(user:User){
+    localStorage.setItem('user',JSON.stringify(user))
     this.currentUserSource.next(user);
   }
   register(model:any){
@@ -33,8 +35,9 @@ export class AuthService {
       map((respnsoe:User)=>{
         const user = respnsoe;
         if(user){
-          localStorage.setItem('user',JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);
+          // localStorage.setItem('user',JSON.stringify(user));
+          // this.currentUserSource.next(user);
         }
       })
     )
