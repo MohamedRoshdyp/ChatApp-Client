@@ -3,29 +3,104 @@
     <hr>
     <form [formGroup]="registerForm" (ngSubmit)="register()" class="col-12  col-lg-auto mb-3 mb-lg-0 me-lg-3">
 
+        <!-- Select Gender  -->
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="" style="margin: 10px 56px 12px -22px">I am a :</label>
+          </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="gender" value="male">
+            <label class="form-check-label" for="">male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="gender" value="female">
+            <label class="form-check-label" for="">female</label>
+          </div>
+          
+        <app-text-input [formControl]="registerForm.controls['userName']" [lable]='"User Name"'></app-text-input>
+
+        <app-text-input [formControl]="registerForm.controls['email']" [lable]='"email"'></app-text-input>
+
+        <app-text-input [formControl]="registerForm.controls['password']" [lable]='"password"' [type]="'password'"></app-text-input>
+
+        <app-text-input [formControl]="registerForm.controls['confirmPasswrod']" [type]="'password'"
+            [lable]='"confirm Passwrod"'></app-text-input>
+
+            <app-date-input [formControl]="registerForm.controls['dateOfBirth']"
+            [lable]='"date Of Birth"' [maxDate]="maxDate"></app-date-input>
+
+            <app-text-input [formControl]="registerForm.controls['knownAs']"
+            [lable]='"known As"'></app-text-input>
+
+            <app-text-input [formControl]="registerForm.controls['country']"
+            [lable]='"Country"'></app-text-input>
+
+            <app-text-input [formControl]="registerForm.controls['city']"
+            [lable]='"City"'></app-text-input>
+        <!-- <div class="mb-3">
+            <input type="text" formControlName="userName" class="form-control" placeholder="UserName"
+                [class.is-invalid]="_userName?.errors && _userName?.touched" [class.is-valid]="!_userName?.errors">
+            <ng-container *ngIf="_userName?.errors">
+                <small *ngIf="_userName?.errors?.['required'] && _userName?.touched" class="form-text  text-danger">required
+                    *</small>
+                <small *ngIf="_userName?.errors?.['minlength'] && _userName?.touched" class="form-text  text-danger">min Length
+                    3</small>
+
+            </ng-container>
+
+        </div> -->
+<!--         
         <div class="mb-3">
-            <!-- <label for="" class="form-label">UserName</label> -->
-            <input type="text" formControlName="userName" class="form-control"  
-                placeholder="UserName">
-            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
-        </div>
-        <div class="mb-3">
-            <!-- <label for="" class="form-label">UserName</label> -->
-            <input type="email" formControlName="email" class="form-control"  
-                placeholder="email">
-            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+            <input type="email" formControlName="email" class="form-control" placeholder="email"
+                [class.is-valid]="!_email?.errors" [class.is-invalid]="_email?.errors && _email?.touched">
+            <ng-container *ngIf="_email?.errors">
+                <small *ngIf="_email?.errors?.['required'] && _email?.touched" class="form-text  text-danger">required
+                    *</small>
+                <small *ngIf="_email?.errors?.['pattern'] && _email?.touched" class="form-text  text-danger">
+                    please, enter valid email
+                </small>
+
+            </ng-container>
         </div>
 
         <div class="mb-3">
-            <!-- <label for="" class="form-label">Password</label> -->
-            <input type="text" formControlName="password" type="password" class="form-control" 
-                 placeholder="Password">
-            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+            <input type="text" formControlName="password" type="password" class="form-control" placeholder="Password"
+                [class.is-valid]="!_password?.errors" [class.is-invalid]="_password?.errors && _password?.touched">
+            <ng-container *ngIf="_password?.errors">
+                <small *ngIf="_password?.errors?.['required'] && _password?.touched"
+                    class="form-text  text-danger">required
+                    *</small>
+                <small *ngIf="_password?.errors?.['minlength'] && _password?.touched" class="form-text  text-danger">
+                    min length 6
+                </small>
+
+            </ng-container>
         </div>
+        <div class="mb-3">
+            <input type="text" formControlName="confirmPasswrod" type="password" class="form-control"
+                placeholder="confirm Passwrod" [class.is-valid]="!_confirmPasswrod?.errors"
+                [class.is-invalid]="_confirmPasswrod?.errors && _confirmPasswrod?.touched">
+            <ng-container *ngIf="_confirmPasswrod?.errors">
+                <small *ngIf="_confirmPasswrod?.errors?.['required'] && _confirmPasswrod?.touched"
+                    class="form-text  text-danger">required
+                    *</small>
+                <small *ngIf="_confirmPasswrod?.errors?.['isMatching'] && _confirmPasswrod?.touched"
+                    class="form-text  text-danger">
+                    pwd & confiramtion not identical !
+                </small>
+
+            </ng-container>
+        </div> -->
 
         <div class="form-group text-center">
-            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success mx-2">Register</button>
-            <button type="button" class="btn btn-warning" (click)="cancel()">Cancel</button>
+            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success mx-2">
+                <i class="fas fa-right-to-bracket mx-1"></i>
+                Register</button>
+            <button type="button" class="btn btn-warning" (click)="cancel()">
+                <i class="fas fa-right-left mx-1"></i>
+                Cancel</button>
         </div>
     </form>
 </div>
+
+<!-- <p>{{registerForm.value | json}}</p>
+<p>{{registerForm.status | json}}</p> -->

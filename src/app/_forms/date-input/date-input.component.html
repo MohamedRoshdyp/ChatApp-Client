@@ -1,0 +1,14 @@
+<div class="mb-3">
+    <input [type]="'text'" 
+    [formControl]="ngControl.control" 
+    class="form-control"
+     placeholder="{{lable}}"
+        [class.is-invalid]="ngControl?.invalid && ngControl?.touched"
+         [class.is-valid]="!ngControl?.invalid"
+         bsDatepicker
+         [bsConfig]="bsConfig"
+         [maxDate]="maxDate"
+         style="cursor: pointer;"
+         >
+
+</div>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Member } from 'src/app/models/member';
+import { environment } from 'src/assets/environments/environment';
 
 @Component({
   selector: 'app-member-card',
@@ -9,6 +10,7 @@ import { Member } from 'src/app/models/member';
 export class MemberCardComponent {
 
   @Input() member!:Member;
+  baseSeverURL :string = environment.baseServerURL;
 
   constructor(){}
 

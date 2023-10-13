@@ -10,7 +10,8 @@
     </div>
     <div class="col-4">
         <div class="card">
-            <img class="card-img-top img-thumbnail" src="{{member.photoUrl || '/assets/default-user.png'}}"
+            <img class="card-img-top img-thumbnail" 
+            [src]="member.photoUrl==baseSeverURL? 'assets/default-user.png' : member.photoUrl "
                 alt="{{member.userName}}">
             <div class="card-body">
                 <div>

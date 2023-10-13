@@ -6,6 +6,7 @@ import { Member } from 'src/app/models/member';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MembersService } from 'src/app/services/members.service';
+import { environment } from 'src/assets/environments/environment';
 
 @Component({
   selector: 'app-member-edit',
@@ -17,6 +18,7 @@ export class MemberEditComponent implements OnInit {
   user!: User; //to send the member to get current user value
   member!: Member;
   editMemberForm:FormGroup;
+  baseSeverURL :string = environment.baseServerURL;
 
   @HostListener('window:beforeunload',['$event'])
     unLoadNotification($event:any){

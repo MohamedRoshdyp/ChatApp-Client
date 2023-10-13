@@ -1,0 +1,23 @@
+<div class="mb-3">
+    <input [type]="type" [formControl]="ngControl.control" class="form-control" placeholder="{{lable}}"
+        [class.is-invalid]="ngControl?.invalid && ngControl?.touched" [class.is-valid]="!ngControl?.invalid">
+
+    <small *ngIf="ngControl.control?.errors?.['required'] && ngControl.control?.touched" class="form-text  text-danger">
+        {{lable}} required *</small>
+
+    <small *ngIf="ngControl.control?.errors?.['minlength'] && ngControl.control?.touched"
+        class="form-text  text-danger">
+        {{lable}} at least {{ngControl.control?.errors.minlength['requiredLength']}} *</small>
+
+    <small *ngIf="ngControl.control?.errors?.['maxlength'] && ngControl.control?.touched"
+        class="form-text  text-danger">
+        {{lable}} at least {{ngControl.control?.errors.maxlength['requiredLength']}} *</small>
+
+    <small *ngIf="ngControl.control?.errors?.['isMatching'] && ngControl.control?.touched"
+        class="form-text  text-danger">
+        {{lable}} not identical *</small>
+
+    <small *ngIf="ngControl.control?.errors?.['pattern'] && ngControl.control?.touched" class="form-text  text-danger">
+        {{lable}} not valid ,please enter valid value *</small>
+
+</div>

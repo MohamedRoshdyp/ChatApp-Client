@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/login';
 import { Router } from '@angular/router';
 import { AlertifyService } from '../services/alertify.service';
+import { environment } from 'src/assets/environments/environment';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -14,6 +15,8 @@ export class NavComponent implements OnInit {
 
   loginForm:FormGroup;
   loggedIn:boolean= false;
+  baseSeverURL :string = environment.baseServerURL;
+
   // currentUser$!:Observable<User | null>;
   constructor(public authServices:AuthService
     ,private fb:FormBuilder

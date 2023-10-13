@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-image-wrapper">
 
-        <img class="card-img-top" src="{{member.photoUrl}}" alt="{{member.userName}}">
+        <img class="card-img-top" [src]="member.photoUrl==baseSeverURL ? 'assets/default-user.png':member.photoUrl " alt="{{member.userName}}">
         <ul class="list-inline animate member-icons text-center">
             <li class="list-inline-item">
                 <button routerLink="/member/{{member.userName}}" type="button" class="btn btn-warning">

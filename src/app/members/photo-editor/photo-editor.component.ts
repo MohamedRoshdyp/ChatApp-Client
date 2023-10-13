@@ -27,6 +27,7 @@ export class PhotoEditorComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.getMember();
   }
   getMember() {
     const user = this.user;
