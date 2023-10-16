@@ -20,7 +20,7 @@ import { User } from '../models/login';
 })
 export class MembersService {
 
-  baseURL: string = environment.baseURL + 'Accounts/';
+  baseURL: string = environment.baseURL;
   memberCash = new Map();
   user!: User;
   userParams!: UserParams;
@@ -37,13 +37,22 @@ export class MembersService {
     )
   }
 
+  addLike(userName: string) {
+    return this.http.post(this.baseURL + 'Likes/add-like/' + userName, {});
+  }
+  getLikes(Pridicate: string,pageNumber:number,pageSize:number) {
+    let params = this.getPaginationHeaders(pageNumber,pageSize);
+    params = params.append('Pridicate',Pridicate);
+    // return this.http.get(this.baseURL + 'Likes/get-user-like');
+    return this.getPaginatedResult<Partial<Member[]>>(this.baseURL+'Likes/get-user-like',params);
+  }
   setUserParams(params: UserParams) {
     this.userParams = params;
   }
   getUserParams() {
     return this.userParams;
   }
-  resetUserPrams(){
+  resetUserPrams() {
     this.userParams = new UserParams(this.user);
     return this.userParams;
   }
@@ -59,7 +68,7 @@ export class MembersService {
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return this.getPaginatedResult<Member[]>(this.baseURL + 'get-all-users', params)
+    return this.getPaginatedResult<Member[]>(this.baseURL + 'Accounts/get-all-users', params)
       .pipe(
         map(res => {
           this.memberCash.set(Object.values(userParams).join('-'), res)
@@ -100,24 +109,24 @@ export class MembersService {
     }
 
     // console.log(member);
-    return this.http.get<Member>(this.baseURL + `get-user-by-userName/${userName}`)
+    return this.http.get<Member>(this.baseURL + `Accounts/get-user-by-userName/${userName}`)
   }
   updateMember(model: updateMember) {
-    return this.http.put<updateMember>(this.baseURL + 'update-current-member', model)
+    return this.http.put<updateMember>(this.baseURL + 'Accounts/update-current-member', model)
   }
   uploadMemberPhoto(file: any) {
     // const params = new HttpParams({fromObject:formData})
     // return this.http.post(this.baseURL+'upload-photo',params.toString(),{
     //   headers:{'Content-Type': 'application/x-www-form-urlencoded'}
     // })
-    return this.http.post(this.baseURL + 'upload-photo', file)
+    return this.http.post(this.baseURL + 'Accounts/upload-photo', file)
 
   }
   removeMemberPhoto(id: number) {
-    return this.http.delete(this.baseURL + `remove-photo/${id}`);
+    return this.http.delete(this.baseURL + `Accounts/remove-photo/${id}`);
   }
 
   setMainPhoto(id: number) {
-    return this.http.put(this.baseURL + `set-main-photo/${id}`, null);
+    return this.http.put(this.baseURL + `Accounts/set-main-photo/${id}`, null);
   }
 }
