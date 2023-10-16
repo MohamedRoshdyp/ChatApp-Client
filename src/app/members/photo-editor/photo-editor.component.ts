@@ -27,7 +27,6 @@ export class PhotoEditorComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.getMember();
   }
   getMember() {
     const user = this.user;
@@ -47,10 +46,11 @@ export class PhotoEditorComponent implements OnInit {
 
     }
     this.memberServices.uploadMemberPhoto(formData).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.alert.success('upload user profile image sucssfully')
         this.reset();
-        this.getMember()
+        this.member.photos.push(res)
+        // this.getMember()
         console.log(res);
       }, error: (err) => {
         this.alert.warning(err.message)

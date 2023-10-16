@@ -1,6 +1,88 @@
 <div class="row">
-    <div class="col-2 mb-2" *ngFor="let item of members">
-        <app-member-card [member]="item"></app-member-card>
+    <div class="col-3">
+        <div class="text-center mt-3">
+            <h5>Your Matches - <span class="text-danger" style="font-weight: bold;font-size: 1em;">
+                    {{pagniation?.totalItems}}</span> found</h5>
+            <hr>
+        </div>
+        <div class="container mt-3">
+            <form #form="ngForm" class="form-inline" (ngSubmit)="getMembers()" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Age From :</label>
+                            <input type="number" name="minAge" id="" class="form-control ml-1" placeholder=""
+                                aria-describedby="helpId" [(ngModel)]="userParams.minAge">
+                        </div>
 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Age To :</label>
+                            <input type="number" name="maxAge" id="" class="form-control ml-1" placeholder=""
+                                aria-describedby="helpId" [(ngModel)]="userParams.maxAge">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Shows :</label>
+                            <select name="gender" [(ngModel)]="userParams.gender" class="form-select ml-1">
+                                <!-- <option value="0">--Select Gender</option>                                -->
+                                <option *ngFor="let item of genderList" [value]="item.key">{{item.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-block btn-outline-warning">
+                            <i class="fas fa-magnifying-glass mx-2"></i>
+                            Fiter</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-block btn-outline-info" (click)="restFiters()">
+                            <i class="fas fa-rotate mx-2"></i>
+                            Reset</button>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col" style="margin-top: 170px;">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning" name="orderBy" (click)="getMembers()"
+                                btnRadio="lastActive" [(ngModel)]="userParams.orderBy">Last Active</button>
+                            <div class="btn-group float-left">
+                                <button type="button" class="btn btn-secondary" name="orderBy" (click)="getMembers()"
+                                    btnRadio="created" [(ngModel)]="userParams.orderBy">New Members</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-3 mb-2" *ngFor="let item of members">
+                <app-member-card [member]="item"></app-member-card>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="d-flex justify-content-center" *ngIf="pagniation">
+                <pagination [boundaryLinks]="true" [totalItems]="pagniation.totalItems"
+                    [itemsPerPage]="pagniation.itemsPerPage" [(ngModel)]="pagniation.currentPage"
+                    (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                    lastText="&raquo;">
+
+                </pagination>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>

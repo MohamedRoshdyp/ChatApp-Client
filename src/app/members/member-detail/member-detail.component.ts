@@ -5,6 +5,7 @@ import { MembersService } from 'src/app/services/members.service';
 import {NgxGalleryOptions} from '@kolkov/ngx-gallery';
 import {NgxGalleryImage} from '@kolkov/ngx-gallery';
 import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
+import { environment } from 'src/assets/environments/environment';
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
@@ -15,6 +16,8 @@ export class MemberDetailComponent implements OnInit  {
   member!:Member;
   galleryOptions!: NgxGalleryOptions[];
   galleryImages!: NgxGalleryImage[];
+  baseSeverURL :string = environment.baseServerURL;
+
   constructor(private memberServices:MembersService,private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
     this.loadMember();

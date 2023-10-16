@@ -8,7 +8,7 @@
             class="btn btn-sm">
                 <i class="fas fa fa-thumbtack mx-1"></i>
             </button>
-            <button (click)="removeItem(photo.id)" type="button" class="btn btn-danger btn-sm">
+            <button [disabled]="photo.isMain" (click)="removeItem(photo.id)" type="button" class="btn btn-danger btn-sm">
                 <i class="fas fa-trash-alt mx-1"></i>
             </button>
         </div>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="col-md-8">
                     <ng-container *ngIf="currentUserImage">
-                        <img [src]="currentUserImage" class="img-fluid rounded-top" alt=""
-                            style="width: 70%;height: 70%">
+                        <img [src]="currentUserImage" class="img-fluid" alt=""
+                            style="width: 50%;height: 90%">
                     </ng-container>
                 </div>
             </div>
