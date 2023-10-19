@@ -7,6 +7,7 @@ import { PaginatedResult } from '../models/Pagination';
 import { UserParams } from '../models/userParams';
 import { AuthService } from './auth.service';
 import { User } from '../models/login';
+import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 
 // const httpOptions = {
@@ -41,10 +42,10 @@ export class MembersService {
     return this.http.post(this.baseURL + 'Likes/add-like/' + userName, {});
   }
   getLikes(Pridicate: string,pageNumber:number,pageSize:number) {
-    let params = this.getPaginationHeaders(pageNumber,pageSize);
+    let params = getPaginationHeaders(pageNumber,pageSize);
     params = params.append('Pridicate',Pridicate);
     // return this.http.get(this.baseURL + 'Likes/get-user-like');
-    return this.getPaginatedResult<Partial<Member[]>>(this.baseURL+'Likes/get-user-like',params);
+    return getPaginatedResult<Partial<Member[]>>(this.baseURL+'Likes/get-user-like',params,this.http);
   }
   setUserParams(params: UserParams) {
     this.userParams = params;
@@ -57,18 +58,18 @@ export class MembersService {
     return this.userParams;
   }
   getMembers(userParams: UserParams) {
-    // console.log(Object.values(userParams).join('-'));
+    console.log(Object.values(userParams).join('-'));
     var response = this.memberCash.get(Object.values(userParams).join('-'));
     if (response) {
       return of(response);
     }
-    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
+    let params = getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
     params = params.append('minAge', userParams.minAge.toString());
     params = params.append('maxAge', userParams.maxAge.toString());
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return this.getPaginatedResult<Member[]>(this.baseURL + 'Accounts/get-all-users', params)
+    return getPaginatedResult<Member[]>(this.baseURL + 'Accounts/get-all-users', params,this.http)
       .pipe(
         map(res => {
           this.memberCash.set(Object.values(userParams).join('-'), res)
@@ -76,29 +77,9 @@ export class MembersService {
         })
       )
   }
-  private getPaginatedResult<T>(url: any, params: any) {
-    const paginatedResult: PaginatedResult<T | null> = new PaginatedResult<T>();
-
-    return this.http.get<T>(url, { observe: 'response', params })
-      .pipe(
-        map(response => {
-          paginatedResult.result = response.body;
-          let _pagination = response.headers.get('Pagination');
-          if (_pagination !== null) {
-            paginatedResult.pagniation = JSON.parse(_pagination);
-          }
-          return paginatedResult;
-        })
-      );
-  }
-
-  private getPaginationHeaders(pageNumber: number, pageSize: number) {
-    let params = new HttpParams();
-    params = params.append('pageNumber', pageNumber.toString());
-    params = params.append('pageSize', pageSize.toString());
-    return params;
-  }
+ 
   getMember(userName: string) {
+    debugger
     // console.log(this.memberCash.values());
     const member = [...this.memberCash.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
