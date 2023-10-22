@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Member } from 'src/app/models/member';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { MembersService } from 'src/app/services/members.service';
+import { PresenceService } from 'src/app/services/presence.service';
 import { environment } from 'src/assets/environments/environment';
 
 @Component({
@@ -14,7 +15,9 @@ export class MemberCardComponent {
   @Input() member!:Member;
   baseSeverURL :string = environment.baseServerURL;
 
-  constructor(private memberServices:MembersService,private alert:AlertifyService){}
+  constructor(private memberServices:MembersService
+    ,private alert:AlertifyService
+    ,public presence:PresenceService){}
 
   addLike(member:Member){
     this.memberServices.addLike(member.userName).subscribe({

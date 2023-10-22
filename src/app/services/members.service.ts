@@ -79,7 +79,7 @@ export class MembersService {
   }
  
   getMember(userName: string) {
-    debugger
+    // debugger
     // console.log(this.memberCash.values());
     const member = [...this.memberCash.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])

@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-body">
-        <div *ngIf="messages?.length === 0">
+        <div *ngIf="(messageServices.messageRead$ | async)?.length === 0">
             No messages yet... say hi by using the message box below
         </div>
 
-        <ul *ngIf="messages?.length > 0" class="chat">
-            <li *ngFor="let message of messages">
+        <ul *ngIf="(messageServices.messageRead$ | async)?.length > 0" class="chat">
+            <li *ngFor="let message of (messageServices.messageRead$ | async)">
                 <div>
                     <span class="chat-img float-right" style="float: right;">
-                        <img class="rounded-circle" src="{{message.senderProfileUrl || './assets/default-user.png'}}" 
+                        <img class="rounded-circle" src="{{message.senderProfileUrl || './assets/default-user.png'}}"
                             alt="{{message.senderUserName}}">
                     </span>
                     <div class="chat-body">
@@ -17,11 +17,13 @@
                                 <span class="fas fa-clock mx-1">{{message.messageSend | timeago}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead 
                                     && message.senderUserName !== UserName">
-                                    <span style="font-size: 10px; font-weight: bold;color: gray;">{{message.messageSend | timeago}} </span>  (unread)
+                                    <span style="font-size: 10px; font-weight: bold;color: gray;">{{message.messageSend
+                                        | timeago}} </span> (unread)
                                 </span>
                                 <span class="text-success mx-1" *ngIf="message.dateRead 
                                     && message.senderUserName !== UserName">
-                                   <span style="font-size: 10px; font-weight: bold;color: gray;">{{message.messageSend | timeago}} </span> (read {{message.dateRead | timeago}})
+                                    <span style="font-size: 10px; font-weight: bold;color: gray;">{{message.messageSend
+                                        | timeago}} </span> (read {{message.dateRead | timeago}})
                                 </span>
                             </small>
                         </div>
@@ -33,15 +35,10 @@
     </div>
 
     <div class="card-footer">
-        <form #messageForm="ngForm"  autocomplete="off" (ngSubmit)="sendMessage()">
+        <form #messageForm="ngForm" autocomplete="off" (ngSubmit)="sendMessage()">
             <div class="input-group">
-                <input 
-                [(ngModel)]="messageContent"
-                    name="messageContent"
-                    required
-                    type="text" 
-                    class="form-control input-sm" 
-                    placeholder="Send a private message">
+                <input [(ngModel)]="messageContent" name="messageContent" required type="text"
+                    class="form-control input-sm" placeholder="Send a private message">
                 <div class="input-group-append">
                     <button [disabled]="!messageForm.valid" class="btn btn-warning" type="submit">
                         <i class="fas fa-paper-plane"></i>

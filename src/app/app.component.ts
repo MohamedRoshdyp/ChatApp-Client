@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { User } from './models/login';
+import { PresenceService } from './services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { User } from './models/login';
 export class AppComponent implements OnInit {
 
   title = 'client';
-  constructor(private authServices: AuthService) {
+  constructor(private authServices: AuthService,private presenceServices:PresenceService) {
 
   }
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
 
       const user: User = JSON.parse(lsUser);
       this.authServices.setCurrentUser(user)
+      this.presenceServices.createHubConnection(user);
     }
   }
 
